@@ -127,10 +127,25 @@ bool abb_esta_vacio(abb_t *abb)
 	return (!abb || abb->cantidad ==0 );
 }
 
+
+static size_t abb_recorrido_in_order(nodo_t *nodo, bool (*f)(void *, void *), void *extra, bool *cortar ){
+	if(!nodo || *cortar) return 0;
+	size_t izq = abb_recorrido_in_order(nodo->izq ,f, extra, cortar);
+	if(*cortar) return 0;
+	if(!f(nodo->dato,extra)){
+		*cortar = true;
+		return izq + 1;
+	}
+	size_t der = abb_recorrido_in_order(nodo->der, f, extra, cortar);
+	return izq +1 + der ;
+}
+
+
 size_t abb_con_cada_elemento(abb_t *abb, enum abb_recorrido tipo_recorrido,
 			     bool (*f)(void *, void *), void *extra)
 {
-	return 0;
+	bool cortar = false;
+	return abb_recorrido_in_order(abb->raiz, f, extra, &cortar);
 }
 
 size_t abb_vectorizar(abb_t *abb, enum abb_recorrido tipo_recorrido,
