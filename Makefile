@@ -1,44 +1,45 @@
-CC=gcc
-CSTD=-std=c99
-WARN=-Wall -Wextra -Wconversion -Wtype-limits -pedantic -Werror
-DBG=-O0 -g
-CFLAGS=$(CSTD) $(WARN) $(DBG)
-INCLUDES=-I./src -I.
+CC       = gcc
+CFLAGS   = -std=c99 -Wall -Wextra -Wconversion -Wtype-limits -pedantic -Werror -O0 -g
+INCLUDES = -Isrc -I.
 
-# Binario de pruebas provisto por la cátedra
-SRC=src/abb.c src/pruebas_alumno.c
-OBJ=$(SRC:.c=.o)
-BIN=pruebas_abb
+# Fuentes de la biblioteca (sin mains)
+SRCS = src/abb.c src/tp1.c
 
-# Binario de la app pedida en el enunciado
-APP_SOURCES=src/abb.c src/tp1.c src/main.c
-APP_OBJECTS=$(APP_SOURCES:.c=.o)
-APP_BIN=abb_app
+# Ejecutables
+APP_BIN  = abb_app
+TEST_BIN = pruebas_alumno
 
-all: $(BIN) $(APP_BIN)
+.PHONY: all clean
 
-$(BIN): CFLAGS+= -DPRUEBAS_ALUMNO
-$(BIN): $(OBJ)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^
+all: $(APP_BIN) $(TEST_BIN)
 
-$(APP_BIN): CFLAGS+= -DABB_APP
-$(APP_BIN): $(APP_OBJECTS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $@ $^
+$(APP_BIN): main.c $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $^ -o $@
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
-
-run: $(BIN)
-	./$(BIN)
-
-run-app: $(APP_BIN)
-	./$(APP_BIN) ../TP1-ENUNCIADO/pokedex.csv
-
-
-valgrind: $(BIN)
-	valgrind --leak-check=full --show-leak-kinds=all ./$(BIN)
-
-# Ejemplo: correr solo una función de test bajo valgrind (requiere soporte en el runner)
+$(TEST_BIN): pruebas_alumno.c $(SRCS)
+	$(CC) $(CFLAGS) $(INCLUDES) $^ -o $@
 
 clean:
-	rm -f $(BIN) $(APP_BIN) src/*.o
+	rm -f $(APP_BIN) $(TEST_BIN) *.o src/*.o
+
+# Helpers
+.PHONY: run-tests run-app valgrind-tests valgrind-app
+
+run-tests: $(TEST_BIN)
+	./$(TEST_BIN)
+
+# CSV por defecto, se puede sobreescribir: make run-app CSV=../TP1-ENUNCIADO/pokedex.csv
+CSV ?= ../TP1-ENUNCIADO/pokedex.csv
+run-app: $(APP_BIN)
+	./$(APP_BIN) $(CSV)
+
+valgrind-tests: $(TEST_BIN)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(TEST_BIN)
+
+valgrind-app: $(APP_BIN)
+	valgrind --leak-check=full --show-leak-kinds=all ./$(APP_BIN) $(CSV)
+
+# Ejecutar (alias simples)
+.PHONY: run
+
+run: run-tests

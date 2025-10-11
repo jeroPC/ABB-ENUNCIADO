@@ -1,8 +1,8 @@
 #ifndef __PA2M_H_
 #define __PA2M_H_
 
-#include <stdio.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 #define BLANCO "\x1b[37;1m"
 #define VERDE "\x1b[32;1m"

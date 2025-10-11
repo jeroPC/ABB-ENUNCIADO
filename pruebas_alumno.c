@@ -1,15 +1,26 @@
-// --- INCLUDES ---
-// Compilar estos tests solo en entornos locales (no en el harness de cátedra)
-#ifdef PRUEBAS_ALUMNO
 
-#include "../pa2m.h"
-#include "abb.h"
+#include "pa2m.h"
+#include "src/abb.h"
 #include <stdbool.h>
-#include <stddef.h> // Para NULL
-#include <stdlib.h> // malloc, free
+#include <stddef.h>
+#include <stdlib.h>
 
 int comparador_int(const void *a, const void *b)
 {
+	int ia = *(const int *)a;
+	int ib = *(const int *)b;
+	return ia - ib;
+}
+
+int comparador_int_con_null(const void *a, const void *b)
+{
+	if (a == NULL && b == NULL)
+		return 0;
+	if (a == NULL)
+		return -1;
+	if (b == NULL)
+		return 1;
+
 	int ia = *(const int *)a;
 	int ib = *(const int *)b;
 	return ia - ib;
@@ -99,7 +110,6 @@ void pruebas_recorridos_abb()
 	pa2m_afirmar(ok,
 		     "El corte ocurre tras visitar los 3 primeros in-order");
 
-	// Test con ABB vacío
 	abb_t *vacio = abb_crear(comparador_int);
 	i = 0;
 	visitados = abb_con_cada_elemento(vacio, ABB_INORDEN,
@@ -203,7 +213,7 @@ void pruebas_eliminacion_hoja_no_raiz()
 	for (int i = 0; i < 5; i++)
 		abb_insertar(abb, &v[i]);
 	size_t cant_ini = abb_cantidad(abb);
-	void *out = abb_eliminar(abb, &v[4]); // eliminar 4 (hoja)
+	void *out = abb_eliminar(abb, &v[4]);
 	pa2m_afirmar(out == &v[4], "Eliminar hoja devuelve el dato");
 	pa2m_afirmar(abb_cantidad(abb) == cant_ini - 1, "Cantidad decrementa");
 	pa2m_afirmar(!abb_existe(abb, &v[4]),
@@ -215,11 +225,11 @@ void pruebas_eliminacion_un_hijo()
 {
 	pa2m_nuevo_grupo("Eliminacion: nodo con un hijo");
 	abb_t *abb = abb_crear(comparador_int);
-	int v[] = { 5, 3, 7, 6 }; // 7 tiene un hijo (6)
+	int v[] = { 5, 3, 7, 6 };
 	for (int i = 0; i < 4; i++)
 		abb_insertar(abb, &v[i]);
 	size_t cant_ini = abb_cantidad(abb);
-	void *out = abb_eliminar(abb, &v[2]); // eliminar 7
+	void *out = abb_eliminar(abb, &v[2]);
 	pa2m_afirmar(out == &v[2],
 		     "Eliminar nodo con un hijo devuelve el dato");
 	pa2m_afirmar(abb_cantidad(abb) == cant_ini - 1, "Cantidad decrementa");
@@ -236,7 +246,7 @@ void pruebas_eliminacion_dos_hijos_predecesor()
 	for (int i = 0; i < 9; i++)
 		abb_insertar(abb, &v[i]);
 	size_t cant_ini = abb_cantidad(abb);
-	void *out = abb_eliminar(abb, &v[0]); 
+	void *out = abb_eliminar(abb, &v[0]);
 	(void)out;
 	pa2m_afirmar(out == &v[0],
 		     "Eliminar nodo con dos hijos devuelve el dato original");
@@ -326,10 +336,10 @@ void pruebas_insercion_abb()
 		     "Se puede insertar elemento mayor a la raiz");
 	pa2m_afirmar(abb_cantidad(abb) == 3,
 		     "Cantidad es 3 tras insertar otro");
-	pa2m_afirmar(!abb_insertar(abb, &a),
-		     "No se puede insertar elemento repetido");
-	pa2m_afirmar(abb_cantidad(abb) == 3,
-		     "Cantidad no cambia al intentar insertar repetido");
+	pa2m_afirmar(abb_insertar(abb, &a),
+		     "Se puede insertar elemento repetido");
+	pa2m_afirmar(abb_cantidad(abb) == 4,
+		     "Cantidad aumenta al insertar repetido");
 	abb_destruir(abb);
 }
 
@@ -351,10 +361,117 @@ void pruebas_creacion_abb()
 		     "No se puede crear ABB con comparador nulo");
 }
 
+void pruebas_insercion_null()
+{
+	pa2m_nuevo_grupo("Pruebas de insercion de elementos NULL");
+	abb_t *abb = abb_crear(comparador_int_con_null);
+
+	pa2m_afirmar(abb_insertar(abb, NULL),
+		     "Se puede insertar elemento NULL en abb vacio");
+	pa2m_afirmar(!abb_esta_vacio(abb),
+		     "El abb no esta vacio tras insertar NULL");
+	pa2m_afirmar(abb_cantidad(abb) == 1,
+		     "El abb posee 1 elemento tras insertar NULL");
+
+	void *raiz = abb_raiz(abb);
+	pa2m_afirmar(raiz == NULL, "La raiz es NULL como se espera");
+
+	pa2m_afirmar(abb_insertar(abb, NULL),
+		     "Se puede insertar NULL duplicado");
+	pa2m_afirmar(abb_cantidad(abb) == 2, "Cantidad aumenta a 2");
+
+	int valor = 10;
+	pa2m_afirmar(abb_insertar(abb, &valor),
+		     "Se puede insertar valor no NULL tras NULL");
+	pa2m_afirmar(abb_cantidad(abb) == 3, "Cantidad es 3");
+
+	abb_destruir(abb);
+}
+
+void pruebas_insercion_repetidos()
+{
+	pa2m_nuevo_grupo("Pruebas de insercion de elementos repetidos");
+	abb_t *abb = abb_crear(comparador_int);
+	int a = 10, b = 5, c = 20;
+
+	abb_insertar(abb, &a);
+	abb_insertar(abb, &b);
+	abb_insertar(abb, &c);
+	pa2m_afirmar(abb_cantidad(abb) == 3, "El abb tiene 3 elementos");
+
+	pa2m_afirmar(abb_insertar(abb, &a),
+		     "Se puede insertar elemento repetido (10)");
+	pa2m_afirmar(abb_cantidad(abb) == 4,
+		     "Cantidad aumenta tras insertar repetido");
+
+	pa2m_afirmar(abb_insertar(abb, &b),
+		     "Se puede insertar elemento repetido (5)");
+	pa2m_afirmar(abb_cantidad(abb) == 5, "Cantidad aumenta a 5");
+
+	abb_destruir(abb);
+}
+
+void pruebas_eliminacion_con_null()
+{
+	pa2m_nuevo_grupo("Pruebas de eliminacion con elementos NULL");
+	abb_t *abb = abb_crear(comparador_int_con_null);
+
+	abb_insertar(abb, NULL);
+	pa2m_afirmar(abb_cantidad(abb) == 1, "ABB tiene 1 elemento (NULL)");
+
+	void *eliminado = abb_eliminar(abb, NULL);
+	pa2m_afirmar(eliminado == NULL,
+		     "Se elimino el elemento NULL correctamente");
+	pa2m_afirmar(abb_esta_vacio(abb),
+		     "El abb esta vacio tras eliminar NULL");
+
+	abb_insertar(abb, NULL);
+	int valor = 10;
+	abb_insertar(abb, &valor);
+	pa2m_afirmar(abb_cantidad(abb) == 2, "ABB tiene 2 elementos");
+
+	eliminado = abb_eliminar(abb, NULL);
+	pa2m_afirmar(eliminado == NULL, "Se elimino NULL correctamente");
+	pa2m_afirmar(abb_cantidad(abb) == 1,
+		     "ABB tiene 1 elemento tras eliminar NULL");
+	pa2m_afirmar(!abb_esta_vacio(abb), "ABB no esta vacio");
+
+	abb_destruir(abb);
+}
+
+void pruebas_insercion_masiva()
+{
+	pa2m_nuevo_grupo("Pruebas de insercion masiva");
+	abb_t *abb = abb_crear(comparador_int);
+
+	int *valores = malloc(sizeof(int) * 100);
+	for (int i = 0; i < 100; i++) {
+		valores[i] = i;
+		abb_insertar(abb, &valores[i]);
+	}
+
+	pa2m_afirmar(abb_cantidad(abb) == 100,
+		     "Se insertaron 100 elementos correctamente");
+
+	for (int i = 0; i < 100; i++) {
+		pa2m_afirmar(abb_insertar(abb, &valores[i]),
+			     "Se puede reinsertar elemento duplicado");
+	}
+
+	pa2m_afirmar(abb_cantidad(abb) == 200,
+		     "Cantidad es 200 tras insertar duplicados");
+
+	free(valores);
+	abb_destruir(abb);
+}
+
 int main()
 {
 	pruebas_creacion_abb();
 	pruebas_insercion_abb();
+	pruebas_insercion_null();
+	pruebas_insercion_repetidos();
+	pruebas_insercion_masiva();
 	pruebas_existencia_y_busqueda_abb();
 	pruebas_cantidad_y_vacio_abb();
 	pruebas_eliminacion_raiz_unica();
@@ -362,10 +479,9 @@ int main()
 	pruebas_eliminacion_un_hijo();
 	pruebas_eliminacion_dos_hijos_predecesor();
 	pruebas_eliminacion_inexistente();
+	pruebas_eliminacion_con_null();
 	pruebas_destruccion_abb();
 	pruebas_recorridos_abb();
 	pruebas_destruir_todo_abb();
 	return pa2m_mostrar_reporte();
 }
-
-#endif // PRUEBAS_ALUMNO

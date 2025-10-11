@@ -62,3 +62,7 @@ vector_original = vector;
 
 ## Respuestas a las preguntas teóricas
 Incluír acá las respuestas a las preguntas del enunciado (si aplica).
+
+
+clang-format -i -style=file $(git ls-files '*.c' '*.h')
+find ABB-ENUNCIADO/ -name "*.c" -o -name "*.h" | xargs clang-format -i

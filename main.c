@@ -205,7 +205,6 @@ static void mostrar_ayuda(const char *prog)
 	printf("  salir              Termina el programa\n");
 }
 
-#ifdef ABB_APP
 int main(int argc, char **argv)
 {
 	if (argc < 2) {
@@ -257,4 +256,3 @@ int main(int argc, char **argv)
 	tp1_destruir(tp);
 	return 0;
 }
-#endif // ABB_APP
