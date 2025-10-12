@@ -172,4 +172,20 @@ En el archivo `sarasa.c` la función `funcion1` utiliza `realloc` para agrandar 
 <img width="70%" src="img/ARBOLES.svg">
 </div>
 
+
+---
+
+## Recursividad e iteratividad:
+
+La recursividad fue fundamental en varias funciones, especialmente en aquellas que recorren el árbol completo, como abb_destruir_nodos, abb_destruir_con_destructor, y los recorridos (abb_recorrer). Por ejemplo, para destruir todos los nodos, simplemente llamo recursivamente a la función sobre los hijos izquierdo y derecho antes de liberar el nodo actual.
+
+En cambio, tanto en la inserción (abb_insertar) como en la búsqueda (abb_buscar), implementé el recorrido del árbol de forma iterativa, usando bucles y punteros auxiliares en vez de recursión. Esto me permitió manejar de manera más sencilla los punteros a los padres de cada nodo, algo fundamental para la eliminación, y además evita posibles problemas de desbordamiento de pila si el árbol está muy desbalanceado.
+
+## Manejo de nodos y punteros:
+
+El manejo de punteros fue uno de los principales desafíos, sobre todo al eliminar nodos. Fue necesario distinguir entre eliminar la raíz, una hoja, un nodo con un solo hijo o con dos hijos. Para el caso de dos hijos, se reemplaza el nodo por su predecesor inorden, lo que requiere encontrar y desvincular ese nodo correctamente. Además, siempre me aseguré de actualizar los punteros de los padres y de liberar la memoria de los nodos eliminados para evitar fugas.
+
+Para la destrucción total (abb_destruir_todo), permito que el usuario pase una función destructora para liberar correctamente los datos almacenados, ya que el ABB solo conoce los punteros y no el contenido.
+
+En linea general el caso mas dificil fue la eliminacion de nodos, pero al hacerla por partes separadas , se me hizo mas facil , que plantear una version completa y luego modularizarla.
 ---
