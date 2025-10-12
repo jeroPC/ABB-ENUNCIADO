@@ -187,5 +187,6 @@ El manejo de punteros fue uno de los principales desafíos, sobre todo al elimin
 
 Para la destrucción total (abb_destruir_todo), permito que el usuario pase una función destructora para liberar correctamente los datos almacenados, ya que el ABB solo conoce los punteros y no el contenido.
 
-En linea general el caso mas dificil fue la eliminacion de nodos, pero al hacerla por partes separadas , se me hizo mas facil , que plantear una version completa y luego modularizarla.
+En línea general, el caso más difícil fue la eliminación de nodos, pero al hacerla por partes separadas se me hizo más fácil que plantear una versión completa y luego modularizarla.
+
 ---
