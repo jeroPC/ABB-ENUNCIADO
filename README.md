@@ -33,6 +33,8 @@ make valgrind
 
 El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completamente genérico: puede almacenar cualquier tipo de puntero, y el criterio de orden lo define el usuario mediante una función de comparación pasada al crear el ABB.
 
+---
+
 ## ABB_CREAR
 
 -Objetivo: Crear un nuevo árbol binario de búsqueda vacío.
@@ -41,6 +43,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(1), porque solo reserva memoria y guarda punteros.
    
+---
 ## ABB_INSERTAR 
 
 -Objetivo: Insertar un elemento en el ABB.
@@ -49,6 +52,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(log n) promedio, O(n) peor caso, porque depende de la altura del árbol.
 
+---
 ## ABB_BUSCAR 
 
 -Objetivo: Buscar un elemento en el ABB.
@@ -57,6 +61,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(log n) promedio, O(n) peor caso, porque recorre un solo camino desde la raíz.
 
+---
 ## ABB_EXISTE 
 
 -Objetivo: Verificar si un elemento está en el ABB.
@@ -65,6 +70,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(log n) promedio, O(n) peor caso, porque internamente busca igual que abb_buscar.
 
+---
 ## ABB_ELIMINAR
 
 -Objetivo: Eliminar un elemento del ABB.
@@ -73,6 +79,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(log n) promedio, O(n) peor caso, porque depende de la altura del árbol.
 
+---
 ## ABB_RAIZ
 
 -Objetivo: Obtener el dato almacenado en la raíz del ABB.
@@ -81,6 +88,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(1), porque es acceso directo a un puntero.
 
+---
 ## ABB_ESTA_VACIO
 
 -Objetivo: Verificar si el ABB está vacío.
@@ -89,6 +97,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(1), porque compara un contador.
 
+---
 ## ABB_CON_CADA_ELEMENTO
 
 -Objetivo: Recorrer el ABB aplicando una función a cada elemento.
@@ -97,6 +106,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(n), porque visita todos los nodos una vez.
 
+---
 ## ABB_VECTORIZAR
 
 -Objetivo: Copiar los elementos del ABB a un vector.
@@ -105,6 +115,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(n), porque recorre todos los nodos para copiarlos.
 
+---
 ## ABB_DESTRUIR
 -Objetivo: Liberar toda la memoria usada por el ABB.
 
@@ -112,6 +123,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(n), porque libera cada nodo una vez.
 
+---
 ## ABB_DESTRUIR_TODO
 
 -Objetivo: Liberar toda la memoria del ABB y de los datos almacenados.
