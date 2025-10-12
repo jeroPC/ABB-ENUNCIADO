@@ -50,7 +50,7 @@ static bool arbol_insercion_con_elementos(abb_t *abb, void *dato)
 	while (actual) {
 		int cmp = abb->comparador(dato, actual->dato);
 		if (cmp <=
-		    0) { // Modificado: <= para aceptar repetidos a la izquierda
+		    0) { 
 			if (!actual->izq) {
 				actual->izq = crear_nodo(dato);
 				if (!actual->izq)
@@ -59,7 +59,7 @@ static bool arbol_insercion_con_elementos(abb_t *abb, void *dato)
 				return true;
 			}
 			actual = actual->izq;
-		} else { // cmp > 0
+		} else { 
 			if (!actual->der) {
 				actual->der = crear_nodo(dato);
 				if (!actual->der)
@@ -141,7 +141,7 @@ static void *eliminar_si_es_hoja_no_raiz(abb_t *abb, nodo_t *padre,
 					 nodo_t *actual)
 {
 	if (!padre)
-		return NULL; // Es la raíz, no corresponde aquí
+		return NULL; 
 	if (!actual->izq && !actual->der) {
 		void *dato_nodo = actual->dato;
 		if (padre->izq == actual)
