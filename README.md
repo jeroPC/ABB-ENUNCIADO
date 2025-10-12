@@ -140,11 +140,6 @@ Tanto abb_con_cada_elemento como abb_vectorizar utilizan recorridos específicos
 
 -Complejidad: O(n), porque recorre y destruye todos los nodos y datos.
 
-
-<div align="center">
-<img width="70%" src="img/diagrama1.svg">
-</div>
-
 ---
 
 ## Respuestas a las preguntas teóricas
