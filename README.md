@@ -145,15 +145,6 @@ Tanto abb_con_cada_elemento como abb_vectorizar utilizan recorridos específicos
 <img width="70%" src="img/diagrama1.svg">
 </div>
 
-En el archivo `sarasa.c` la función `funcion1` utiliza `realloc` para agrandar la zona de memoria utilizada para conquistar el mundo. El resultado de `realloc` lo guardo en una variable auxiliar para no perder el puntero original en caso de error:
-
-
-
-
-<div align="center">
-<img width="70%" src="img/diagrama2.svg">
-</div>
-
 ---
 
 ## Respuestas a las preguntas teóricas
