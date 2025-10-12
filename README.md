@@ -61,6 +61,11 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 -Complejidad: O(log n) promedio, O(n) peor caso, porque recorre un solo camino desde la raíz.
 
+<div align="center">
+<img width="70%" src="img/BUSQUEDA.svg">
+</div>
+
+
 ---
 ## ABB_EXISTE 
 
