@@ -65,6 +65,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 <img width="70%" src="img/BUSQUEDA.svg">
 </div>
 
+EXTRA: Utilizo buscar_nodo_y_padre(), una función auxiliar que implementé de forma iterativa. Usando el comparador, voy actualizando el puntero al nodo actual en cada paso, avanzando por el árbol hasta encontrar el dato buscado o determinar que no está presente en el ABB.
 
 ---
 ## ABB_EXISTE 
