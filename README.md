@@ -159,14 +159,14 @@ En el archivo `sarasa.c` la función `funcion1` utiliza `realloc` para agrandar 
 ## Respuestas a las preguntas teóricas
 
 ¿Qué es un árbol, un árbol binario y un árbol binario de búsqueda?
-    Árbol:
+  Árbol:
     Un árbol es una estructura de datos jerárquica compuesta por nodos. Cada nodo puede tener cero o más hijos, y existe un único nodo raíz desde el cual se puede llegar a cualquier otro nodo del árbol. No hay un orden específico entre los hijos.
 
-    Árbol binario:
-    Un árbol binario es un tipo especial de árbol donde cada nodo puede tener como máximo dos hijos, denominados hijo izquierdo e hijo derecho. 
+  Árbol binario:
+    Un árbol binario es un tipo especial de árbol donde cada nodo puede tener como máximo dos hijos, denominados hijo izquierdo e hijo derecho.
 
-    Árbol binario de búsqueda (ABB):
-    Un árbol binario de búsqueda es un árbol binario en el que, para cada nodo, todos los valores del subárbol izquierdo son menores y todos los valores del subárbol derecho son mayores. Esto permite búsquedas, inserciones y eliminaciones eficientes.    
+  Árbol binario de búsqueda (ABB):
+    Un árbol binario de búsqueda es un árbol binario en el que, para cada nodo, todos los valores del subárbol izquierdo son menores y todos los valores del subárbol derecho son mayores. Esto permite búsquedas, inserciones y eliminaciones eficientes. 
 
 <div align="center">
 <img width="70%" src="img/ARBOLES.svg">
