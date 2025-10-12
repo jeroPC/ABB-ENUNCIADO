@@ -109,7 +109,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 
 Tanto abb_con_cada_elemento como abb_vectorizar utilizan recorridos específicos para procesar el ABB de manera eficiente y predecible. El usuario puede elegir entre tres tipos de recorrido: inorden, preorden o postorden. En el siguiente diagrama se muestra cómo se almacenan los valores del ABB en un vector según el recorrido seleccionado.
 
-
+-----
 <div align="center">
 <img width="70%" src="img/recorridos.svg">
 </div>
@@ -157,3 +157,16 @@ En el archivo `sarasa.c` la función `funcion1` utiliza `realloc` para agrandar 
 ---
 
 ## Respuestas a las preguntas teóricas
+
+¿Qué es un árbol, un árbol binario y un árbol binario de búsqueda?
+    Un árbol es una estructura de datos jerárquica compuesta por nodos, cada nodo puede tener hijos o no, no debe seguir un orden especifico a difencia de los otros dos 
+
+    Un arbol binario , es un arbol con una raiz , y dos o menos hijos , los cuales deben respetar este limite de hijos, los hijos de la raiz y luego cada subraiz , de denominan hijo izquierdo y derecho
+
+    un arbool binario de busqueda, es un arbol con dos hijos o menos , que a la derecha de la raiz , van los valores mayores a esta , a la izquierda los menores 
+
+<div align="center">
+<img width="70%" src="img/ARBOLES.svg">
+</div>
+
+---
