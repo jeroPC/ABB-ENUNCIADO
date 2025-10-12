@@ -1,3 +1,6 @@
+# Ejecutar con valgrind
+valgrind: abb_app
+	valgrind --leak-check=full --track-origins=yes ./abb_app ../TP1-ENUNCIADO/pokedex.csv cantidad
 CC       = gcc
 CFLAGS   = -std=c99 -Wall -Wextra -Wconversion -Wtype-limits -pedantic -Werror -O0 -g
 INCLUDES = -Isrc -I.
