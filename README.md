@@ -107,7 +107,7 @@ El TDA ABB (Árbol Binario de Búsqueda) implementado en este TP es completament
 -Complejidad: O(n), porque visita todos los nodos una vez.
 
 
-TANTO ABB_CON_CADA_ELEMENTO , COMO ABB_VECTORIZAR funcionan gracias a un tipo de recorrido establecido , para recorrer el abb , para garantizar efectividad y un recorrido estable , el usuario tiene a su disposicion 3 recorridos (in order, pre order, pos order), en este diagrama se puede ver como se iria almacenando cada valor del abb , en un indice 
+Tanto abb_con_cada_elemento como abb_vectorizar utilizan recorridos específicos para procesar el ABB de manera eficiente y predecible. El usuario puede elegir entre tres tipos de recorrido: inorden, preorden o postorden. En el siguiente diagrama se muestra cómo se almacenan los valores del ABB en un vector según el recorrido seleccionado.
 
 
 <div align="center">
